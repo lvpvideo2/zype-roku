@@ -1,7 +1,7 @@
 'getters query the api directly
 
 Function get_search_results(query As String) as object
-  url = m.api.endpoint + "/videos/?api_key=" + m.api.key + "&per_page=" + m.config.per_page + "&q=" + query
+  url = m.api.endpoint + "/videos/?api_key=" + m.api.key + "&per_page=" + m.config.per_page + "&q=" + query + "&type=zype"
   search_results = get_video_feed(url, true)
   return search_results
 End Function
@@ -45,7 +45,7 @@ Function get_category_playlists() as object
   category_info = get_category_info(m.config.category_id)
 
   for each value in category_info.values
-    url = m.api.endpoint + "/videos?api_key=" + m.api.key + "&category%5B" + category_info.name + "%5D=" + value
+    url = m.api.endpoint + "/videos?api_key=" + m.api.key + "&category%5B" + category_info.name + "%5D=" + value + "&type=zype"
     episodes = get_video_feed(url, false)
     if(episodes.count() > 0)
       if(m.config.prepend_category_name = true)
