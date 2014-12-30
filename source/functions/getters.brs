@@ -62,7 +62,7 @@ End Function
 Function get_category_info(category_id As String) as Object
   request = CreateObject("roUrlTransfer")
   port = CreateObject("roMessagePort")
-  request.SetMessagePort(port)
+  request.SetPort(port)
 
   request.SetCertificatesFile("common:/certs/ca-bundle.crt")
   request.AddHeader("X-Roku-Reserved-Dev-Id", "")

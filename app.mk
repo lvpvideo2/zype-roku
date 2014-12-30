@@ -22,15 +22,15 @@
 # to exclude using more than one pattern use additional '-x <pattern>' arguments
 # ZIP_EXCLUDE= -x \*.pkg -x storeassets\*
 #
-# Important Notes: 
+# Important Notes:
 # To use the "install" and "remove" targets to install your
 # application directly from the shell, you must do the following:
 #
 # 1) Make sure that you have the curl command line executable in your path
-# 2) Set the variable ROKU_DEV_TARGET in your environment to the IP 
+# 2) Set the variable ROKU_DEV_TARGET in your environment to the IP
 #    address of your Roku box. (e.g. export ROKU_DEV_TARGET=192.168.1.1.
 #    Set in your this variable in your shell startup (e.g. .bashrc)
-##########################################################################  
+##########################################################################
 ROKU_DEV_TARGET = 192.168.1.149
 DEVPASSWORD = zype
 
@@ -72,7 +72,7 @@ $(APPNAME): manifest
 		rm  $(ZIPREL)/$(APPNAME).zip; \
 	fi
 
-	@echo "  >> creating destination directory $(ZIPREL)"	
+	@echo "  >> creating destination directory $(ZIPREL)"
 	@if [ ! -d $(ZIPREL) ]; \
 	then \
 		mkdir -p $(ZIPREL); \
@@ -93,7 +93,7 @@ $(APPNAME): manifest
 
 # zip .png files without compression
 # do not zip up Makefiles, or any files ending with '~'
-	@echo "  >> creating application zip $(ZIPREL)/$(APPNAME).zip"	
+	@echo "  >> creating application zip $(ZIPREL)/$(APPNAME).zip"
 	@if [ -d $(SOURCEREL)/$(APPNAME) ]; \
 	then \
 		(zip -0 -r "$(ZIPREL)/$(APPNAME).zip" . -i \*.png $(ZIP_EXCLUDE)); \
@@ -130,7 +130,7 @@ install: $(APPNAME)
 pkg: install
 	@echo "*** Creating Package ***"
 
-	@echo "  >> creating destination directory $(PKGREL)"	
+	@echo "  >> creating destination directory $(PKGREL)"
 	@if [ ! -d $(PKGREL) ]; \
 	then \
 		mkdir -p $(PKGREL); \
@@ -150,7 +150,7 @@ pkg: install
 		read -p "Password: " REPLY ; echo $$REPLY | xargs -i curl -s -S -Fmysubmit=Package -Fapp_name=$(APPNAME)/$(VERSION) -Fpasswd={} -Fpkg_time=`expr \`date +%s\` \* 1000` "http://$(ROKU_DEV_TARGET)/plugin_package" | grep '^<tr><td><font face="Courier"><a' | sed 's/.*href=\"\([^\"]*\)\".*/\1/' | sed 's#pkgs//##' | xargs -i curl -s -S -o $(PKGREL)/$(APPNAME)_`date +%F-%T`.pkg http://$(ROKU_DEV_TARGET)/pkgs/{} ; \
 	fi
 
-	@echo "*** Package  $(APPNAME) complete ***" 
+	@echo "*** Package  $(APPNAME) complete ***"
 
 remove:
 	@echo "Removing $(APPNAME) from host $(ROKU_DEV_TARGET)"
