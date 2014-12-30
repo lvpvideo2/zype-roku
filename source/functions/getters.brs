@@ -45,7 +45,7 @@ Function get_category_playlists() as object
   category_info = get_category_info(m.config.category_id)
 
   for each value in category_info.values
-    url = m.api.endpoint + "/videos?api_key=" + m.api.key + "&category%5B" + category_info.name + "%5D=" + value + "&type=zype"
+    url = m.api.endpoint + "/videos?api_key=" + m.api.key + "&category%5B" + HttpEncode(category_info.name) + "%5D=" + HttpEncode(value) + "&type=zype"
     episodes = get_video_feed(url, false)
     if(episodes.count() > 0)
       if(m.config.prepend_category_name = true)
@@ -122,4 +122,9 @@ Function get_video_feed(url As String, short As Boolean) as object
     episodes.push(episode)
   end for
   return episodes
+End Function
+
+Function HttpEncode(str As String) As String
+    o = CreateObject("roUrlTransfer")
+    return o.Escape(str)
 End Function
