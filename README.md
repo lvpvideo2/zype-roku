@@ -25,6 +25,11 @@ This is a boilerplate Rails App using the Zype Platform and Zype Gem.
 
   * Run 'make' in your project directory
 
+6. Brand your images. We have supplied sample images with correct dimensions. To customize your images,
+switch the mm_icon, mm_side, and splash screen images that are located in the images
+directory. You will also need to supply a 290 x 218 JPG HD Channel Image and a 214 x 144 SD Channel
+Image when you create your Channel in the Roku Store.
+
 ## License
 
 [![Creative Commons License][image-1]][1]  
