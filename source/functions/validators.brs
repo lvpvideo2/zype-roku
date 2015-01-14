@@ -1,5 +1,3 @@
-' null and validation checks for the Zype API
-
 Function valid_featured_playlist() as String
   playlist_id = m.config.featured_playlist_id
   if playlist_id = invalid
