@@ -9,7 +9,7 @@ End Function
 Function get_featured_playlist() as object
   validation = valid_featured_playlist()
 
-  if validation = "aasdfsdf"
+  if validation = "true"
     url = m.api.endpoint + "/playlists/" + m.config.featured_playlist_id + "/videos/?api_key=" + m.api.key + "&per_page=" + m.config.per_page
     featured = {name: get_playlist_name(m.config.featured_playlist_id), episodes: get_video_feed(url, false)}
   else
@@ -51,7 +51,7 @@ Function get_category_playlists() as object
   categories = CreateObject("roArray", 1, true)
   validation = valid_category()
 
-  if validation = "asdfasdff"
+  if validation = "true"
     category_info = get_category_info(m.config.category_id)
 
     for each value in category_info.values
