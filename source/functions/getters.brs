@@ -14,6 +14,7 @@ Function get_featured_playlist() as object
     featured = {name: get_playlist_name(m.config.featured_playlist_id), episodes: get_video_feed(url, false)}
   else
     url = m.api.endpoint + "/videos/?api_key=" + m.api.key + "&per_page=10&type=zype"
+    print url
     featured = {name: "New Releases", episodes: get_video_feed(url, false)}
   endif
   return featured
@@ -65,7 +66,7 @@ Function get_category_playlists() as object
       endif
     end for
   else
-    url = m.api.endpoint + "/videos?api_key=" + m.api.key + "&per_page=" + m.config.per_page + "&type=zype"
+    url = m.api.endpoint + "/videos?api_key=" + m.api.key + "&per_page=" + m.config.per_page + "&type=zype&sort=title&order=asc"
     episodes = get_video_feed(url, false)
     categories.push({name: "All Videos", episodes: episodes})
   endif
@@ -127,7 +128,7 @@ Function get_video_feed(url As String, short As Boolean) as object
       Description: item.description,
       SwitchingStrategy: m.config.switching_strategy
     }
-    
+
     top_validation = valid_top_zobject()
     bottom_validation = valid_bottom_zobject()
 
