@@ -7,8 +7,13 @@ Function get_search_results(query As String) as object
 End Function
 
 Function get_featured_playlist() as object
-  url = m.api.endpoint + "/playlists/" + m.config.featured_playlist_id+ "/videos/?api_key=" + m.api.key + "&per_page=" + m.config.per_page
-  featured = {name: get_playlist_name(m.config.featured_playlist_id), episodes: get_video_feed(url, false)}
+  if m.config.featured_playlist_id = invalid
+    url = m.api.endpoint + "/videos/?api_key=" + m.api.key + "&per_page=10&type=zype"
+    featured = {name: "New Releases", episodes: get_video_feed(url, false)}
+  else
+    url = m.api.endpoint + "/playlists/" + m.config.featured_playlist_id+ "/videos/?api_key=" + m.api.key + "&per_page=" + m.config.per_page
+    featured = {name: get_playlist_name(m.config.featured_playlist_id), episodes: get_video_feed(url, false)}
+  endif
   return featured
 End Function
 
@@ -42,19 +47,25 @@ End Function
 Function get_category_playlists() as object
   categories = CreateObject("roArray", 1, true)
 
-  category_info = get_category_info(m.config.category_id)
+  if m.config.category_id = invalid
+      url = m.api.endpoint + "/videos?api_key=" + m.api.key + "&per_page=" + m.config.per_page + "&type=zype"
+      episodes = get_video_feed(url, false)
+      categories.push({name: "All Videos", episodes: episodes})
+  else
+    category_info = get_category_info(m.config.category_id)
 
-  for each value in category_info.values
-    url = m.api.endpoint + "/videos?api_key=" + m.api.key + "&category%5B" + HttpEncode(category_info.name) + "%5D=" + HttpEncode(value) + "&type=zype"
-    episodes = get_video_feed(url, false)
-    if(episodes.count() > 0)
-      if(m.config.prepend_category_name = true)
-        categories.push({name: category_info.name + " " + value, episodes: episodes})
-      else
-        categories.push({name: value, episodes: episodes})
+    for each value in category_info.values
+      url = m.api.endpoint + "/videos?api_key=" + m.api.key + "&category%5B" + HttpEncode(category_info.name) + "%5D=" + HttpEncode(value) + "&type=zype"
+      episodes = get_video_feed(url, false)
+      if(episodes.count() > 0)
+        if(m.config.prepend_category_name = true)
+          categories.push({name: category_info.name + " " + value, episodes: episodes})
+        else
+          categories.push({name: value, episodes: episodes})
+        endif
       endif
-    endif
-  end for
+    end for
+  endif
 
   return categories
 End Function
@@ -111,10 +122,17 @@ Function get_video_feed(url As String, short As Boolean) as object
       'ReleaseDate: ,
       Rating: rating,
       Description: item.description,
-      Actors: parse_zobjects(item, m.config.top_description_zobject),
-      Categories: parse_zobjects(item, m.config.bottom_description_zobject),
       SwitchingStrategy: m.config.switching_strategy
     }
+
+    if m.config.top_description_zobject <> invalid
+      episode.Actors = parse_zobjects(item, m.config.top_description_zobject)
+    endif
+
+    if m.config.bottom_description_zobject <> invalid
+      episode.Categories = parse_zobjects(item, m.config.bottom_description_zobject)
+    endif
+
     if (short = true)
       episode.ShortDescriptionLine1 = item.title
       episode.ShortDescriptionLine2 = rating
