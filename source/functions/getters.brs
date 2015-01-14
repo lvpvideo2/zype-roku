@@ -24,7 +24,7 @@ End Function
 
 Function get_stream_url(id As String) as Object
   stream_url = {}
-  url = m.api.endpoint + "/videos/" + id + "/player?player_key=" + m.api.player
+  url = m.api.player_endpoint + "/embed/" + id + "/?api_key=" + m.api.key
   res = call_api(url)
   if(res.DoesExist("body"))
     if(res.body.DoesExist("outputs"))

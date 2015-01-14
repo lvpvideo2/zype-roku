@@ -3,7 +3,7 @@ Function set_api() as void
   m.api = {
     key: "",
     app: "",
-    player: "",
-    endpoint: "https://api.zype.com"
+    endpoint: "https://api.zype.com",
+    player_endpoint: "https://player.zype.com"
   }
 End Function
