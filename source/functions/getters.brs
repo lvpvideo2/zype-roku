@@ -7,12 +7,14 @@ Function get_search_results(query As String) as object
 End Function
 
 Function get_featured_playlist() as object
-  if m.config.featured_playlist_id = invalid
+  validation = valid_featured_playlist()
+
+  if validation = "true"
+    url = m.api.endpoint + "/playlists/" + m.config.featured_playlist_id + "/videos/?api_key=" + m.api.key + "&per_page=" + m.config.per_page
+    featured = {name: get_playlist_name(m.config.featured_playlist_id), episodes: get_video_feed(url, false)}
+  else
     url = m.api.endpoint + "/videos/?api_key=" + m.api.key + "&per_page=10&type=zype"
     featured = {name: "New Releases", episodes: get_video_feed(url, false)}
-  else
-    url = m.api.endpoint + "/playlists/" + m.config.featured_playlist_id+ "/videos/?api_key=" + m.api.key + "&per_page=" + m.config.per_page
-    featured = {name: get_playlist_name(m.config.featured_playlist_id), episodes: get_video_feed(url, false)}
   endif
   return featured
 End Function
@@ -46,12 +48,9 @@ End Function
 
 Function get_category_playlists() as object
   categories = CreateObject("roArray", 1, true)
+  validation = valid_category()
 
-  if m.config.category_id = invalid
-      url = m.api.endpoint + "/videos?api_key=" + m.api.key + "&per_page=" + m.config.per_page + "&type=zype"
-      episodes = get_video_feed(url, false)
-      categories.push({name: "All Videos", episodes: episodes})
-  else
+  if validation = "true"
     category_info = get_category_info(m.config.category_id)
 
     for each value in category_info.values
@@ -65,6 +64,10 @@ Function get_category_playlists() as object
         endif
       endif
     end for
+  else
+    url = m.api.endpoint + "/videos?api_key=" + m.api.key + "&per_page=" + m.config.per_page + "&type=zype"
+    episodes = get_video_feed(url, false)
+    categories.push({name: "All Videos", episodes: episodes})
   endif
 
   return categories
@@ -124,12 +127,15 @@ Function get_video_feed(url As String, short As Boolean) as object
       Description: item.description,
       SwitchingStrategy: m.config.switching_strategy
     }
+    
+    top_validation = valid_top_zobject()
+    bottom_validation = valid_bottom_zobject()
 
-    if m.config.top_description_zobject <> invalid
+    if top_validation = "true"
       episode.Actors = parse_zobjects(item, m.config.top_description_zobject)
     endif
 
-    if m.config.bottom_description_zobject <> invalid
+    if bottom_validation = "true"
       episode.Categories = parse_zobjects(item, m.config.bottom_description_zobject)
     endif
 
