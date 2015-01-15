@@ -10,7 +10,7 @@ Function home_screen()
   featured = get_featured_playlist()
   categories = get_category_playlists()
   toolbar = grid_toolbar()
-  
+
   names = CreateObject("roArray", 1, true)
   names.push(featured.name)
   for each category in categories
@@ -39,11 +39,11 @@ Function home_screen()
     if type(msg) = "roGridScreenEvent"
       if (msg.isListItemSelected())
         if(msg.GetIndex() = 0)
-          detail_screen(featured.episodes[msg.GetData()], featured.name, "")
+          detail_screen(featured.episodes[msg.GetData()], "Home", featured.episodes[msg.GetData()].title)
         else if(msg.GetIndex() = names.count()-1)
           toolbar.tools[msg.GetData()].function_name()
         else
-          detail_screen(categories[msg.GetIndex()-1].episodes[msg.GetData()], categories[msg.GetIndex()-1].name, "")
+          detail_screen(categories[msg.GetIndex()-1].episodes[msg.GetData()], "Home", categories[msg.GetIndex()-1].episodes[msg.GetData()].title)
         endif
       endif
     endif

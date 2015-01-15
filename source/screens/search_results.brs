@@ -24,7 +24,7 @@ Function search_results_screen(query As String) as object
         if(results.Count() <= 0)
           return -1
         else
-          detail_screen(results[msg.GetIndex()], "", "")
+          detail_screen(results[msg.GetIndex()], "Search", results[msg.GetIndex()].title)
         endif
       endif
     endif
