@@ -16,10 +16,10 @@ Function get_dynamic_config() as void
   m.config.info = {
         header: "About Zype Media"
         paragraphs: [
-            "NEXT GENERATION ONLINE VIDEO PLATFORM FOR DESTINATIONS & APPS", 
-            "", 
-            "Our platform includes everything you need to create immersive video experiences to drive revenue and reach.", 
-            "", 
+            "NEXT GENERATION ONLINE VIDEO PLATFORM FOR DESTINATIONS & APPS",
+            "",
+            "Our platform includes everything you need to create immersive video experiences to drive revenue and reach.",
+            "",
             "http://www.zype.com"
         ]
     }
@@ -100,11 +100,12 @@ Function init_theme() as void
     OverhangPrimaryLogoOffsetSD_X: m.config.logo_offset_sd_x,
     OverhangPrimaryLogoOffsetSD_Y: m.config.logo_offset_sd_y,
     GridScreenDescriptionOffsetHD: m.config.grid_description_image_offset_hd,
+    GridScreenDescriptionOffsetSD: m.config.grid_description_image_offset_sd,
     GridScreenBorderOffsetHD: m.config.grid_border_offset_hd,
     GridScreenOverhangHeightHD: m.config.grid_overhang_height_hd,
+    GridScreenOverhangHeightSD: m.config.grid_overhang_height_sd,
     GridScreenLogoOffsetHD_X: m.config.grid_logo_offset_hd_x,
     GridScreenLogoOffsetHD_Y: m.config.grid_logo_offset_hd_y,
-    GridScreenOverhangHeightSD: m.config.grid_overhang_height_sd,
     GridScreenLogoOffsetSD_X: m.config.grid_logo_offset_sd_x,
     GridScreenLogoOffsetSD_Y: m.config.grid_logo_offset_sd_y
   }
