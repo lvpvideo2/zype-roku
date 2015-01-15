@@ -55,7 +55,7 @@ Function get_category_playlists() as object
     category_info = get_category_info(m.config.category_id)
 
     for each value in category_info.values
-      url = m.api.endpoint + "/videos?api_key=" + m.api.key + "&category%5B" + HttpEncode(category_info.name) + "%5D=" + HttpEncode(value) + "&type=zype"
+      url = m.api.endpoint + "/videos?api_key=" + m.api.key + "&category%5B" + HttpEncode(category_info.name) + "%5D=" + HttpEncode(value) + "&type=zype&per_page=" + m.config.per_page
       episodes = get_video_feed(url, false)
       if(episodes.count() > 0)
         if(m.config.prepend_category_name = true)
