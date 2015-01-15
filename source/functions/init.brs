@@ -88,7 +88,9 @@ Function init_theme() as void
     OverhangSliceSD: m.images.slice_sd,
     OverhangPrimaryLogoSD: m.images.logo_sd,
     GridScreenDescriptionImageHD: m.images.grid_description_image_hd,
+    GridScreenDescriptionImageSD: m.images.grid_description_image_sd,
     GridScreenFocusBorderHD: m.images.grid_border_image_hd,
+    GridScreenFocusBorderSD: m.images.grid_border_image_sd,
     GridScreenOverhangSliceHD: m.images.slice_hd
     GridScreenLogoHD: m.images.logo_hd,
     GridScreenOverhangSliceSD: m.images.slice_sd,
