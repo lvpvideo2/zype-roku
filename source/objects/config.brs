@@ -4,6 +4,7 @@ Function set_api() as void
     key: "",
     app: "",
     endpoint: "https://api.zype.com",
-    player_endpoint: "https://player.zype.com"
+    player_endpoint: "https://player.zype.com",
+    version: "1.0.0"
   }
 End Function
