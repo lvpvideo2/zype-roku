@@ -20,15 +20,18 @@ This is a boilerplate Rails App using the Zype Platform and Zype Gem.
   * key: Your Zype API Read-Only Key
   * app: Your Roku App Key
 
-5. Build the Roku app
-
-  * Run 'make' in your project directory
+5. Run the clean_up shell script to remove git and instruction files to help make Roku 1 compatibile
 
 6. Brand images channel. We have supplied sample images with correct dimensions. To customize your images,
 switch the mm_icons, mm_sides, and splash screen images that are located in the images
 directory. You will also need to update the title, subtitle, and splash color in the manifest.
 You will also need to supply a 290 x 218 JPG HD Channel Image and a 214 x 144 SD Channel
 Image when you create your Channel in the Roku Store.
+
+
+7. Build the Roku app
+
+  * Run 'make' in your project directory
 
 ## License
 
