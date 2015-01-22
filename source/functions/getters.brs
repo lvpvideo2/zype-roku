@@ -11,12 +11,18 @@ Function get_featured_playlist() as object
 
   if validation = "true"
     url = m.api.endpoint + "/playlists/" + m.config.featured_playlist_id + "/videos/?api_key=" + m.api.key + "&per_page=" + m.config.per_page
-    featured = {name: get_playlist_name(m.config.featured_playlist_id), episodes: get_video_feed(url, false)}
+    episodes = get_video_feed(url, false)
+    if(episodes.count() > 0)
+      featured = {name: get_playlist_name(m.config.featured_playlist_id), episodes: episodes}
+    else
+      url = m.api.endpoint + "/videos/?api_key=" + m.api.key + "&per_page=10&type=zype"
+      featured = {name: "New Releases", episodes: get_video_feed(url, false)}
+    end if
   else
     url = m.api.endpoint + "/videos/?api_key=" + m.api.key + "&per_page=10&type=zype"
-    print url
     featured = {name: "New Releases", episodes: get_video_feed(url, false)}
   endif
+
   return featured
 End Function
 
